@@ -56,14 +56,12 @@ def getAgeAndData(observations, obs_type):
     return age_to_hr
 
 
-def run():
+def run(text):
     getAgingPopulation()
     all_obs = getAllObservations()
-    text = "Pain severity - 0-10 verbal numeric rating [Score] - Reported"
     stored_stuff = latestObservations(all_obs, text)
     agestuff = getAgeAndData(stored_stuff, text)
     pprint(agestuff)
-    # stuff = [(y,x) for (x,y) in agestuff]
     stuff = sorted(agestuff, key=lambda tup: tup[0])
     pprint(stuff)
     plt.plot(*zip(*stuff))
@@ -72,4 +70,4 @@ def run():
     plt.show()
 
 
-run()
+run("Pain severity - 0-10 verbal numeric rating [Score] - Reported")
