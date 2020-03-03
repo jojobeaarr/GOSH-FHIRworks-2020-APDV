@@ -59,13 +59,16 @@ def getAgeAndData(observations, obs_type):
 def run():
     getAgingPopulation()
     all_obs = getAllObservations()
-    stored_stuff = latestObservations(all_obs, "Body mass index (BMI) [Percentile] Per age and gender")
-    agestuff = getAgeAndData(stored_stuff, "Body mass index (BMI) [Percentile] Per age and gender")
+    text = "Pain severity - 0-10 verbal numeric rating [Score] - Reported"
+    stored_stuff = latestObservations(all_obs, text)
+    agestuff = getAgeAndData(stored_stuff, text)
     pprint(agestuff)
-    stuff = [(y,x) for (x,y) in agestuff]
-    stuff = sorted(stuff, key=lambda tup: tup[0])
+    # stuff = [(y,x) for (x,y) in agestuff]
+    stuff = sorted(agestuff, key=lambda tup: tup[0])
     pprint(stuff)
     plt.plot(*zip(*stuff))
+    plt.xlabel("Ages")
+    plt.ylabel(text)
     plt.show()
 
 
