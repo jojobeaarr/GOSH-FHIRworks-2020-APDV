@@ -2,7 +2,7 @@ from pprint import pprint
 import matplotlib.pyplot as plt
 from fhir_parser import FHIR
 
-fhir = FHIR(endpoint="https://10.24.85.109:5001/api/", verify_ssl=False)
+fhir = FHIR()
 patients = fhir.get_all_patients()
 all_observations = []
 old_patients = []
@@ -56,7 +56,7 @@ def getAgeAndData(observations, obs_type):
     return age_to_hr
 
 
-def run(text):
+def gen_graph(text):
     getAgingPopulation()
     all_obs = getAllObservations()
     stored_stuff = latestObservations(all_obs, text)
@@ -67,7 +67,8 @@ def run(text):
     plt.plot(*zip(*stuff))
     plt.xlabel("Ages")
     plt.ylabel(text)
+    plt.savefig("result.png")
     plt.show()
 
 
-run("Pain severity - 0-10 verbal numeric rating [Score] - Reported")
+#gen_graph("Pain severity - 0-10 verbal numeric rating [Score] - Reported")
