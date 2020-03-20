@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>FHIR Demo</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+<p class="h2">GOSH-FHIRWORKS2020-Aging-Population-Data-Visualisation Demo</p>
+<p class="h3">This is a demo that generates graphs of observation data for the aging population.</p>
+<form id="selection">
+    <select name="observation" id="observation">
+        <option value="Heart rate">Heart rate</option>
+        <option value="Respiratory rate">Respiratory rate</option>
+        <option value="Body Mass Index">Body Mass Index</option>
+        <option value="Tobacco smoking status NHIS">Tobacco smoking status NHIS</option>
+        <option value="Systolic Blood Pressure">Systolic Blood Pressure</option>
+        <option value="Body Height">Body Height</option>
+        <option value="Pain severity - 0-10 verbal numeric rating [Score] - Reported">Pain severity - 0-10 verbal
+            numeric rating [Score] - Reported
+        </option>
+        <option value="Erythrocytes [#/volume] in Blood by Automated count">Erythrocytes [#/volume] in Blood by
+            Automated count
+        </option>
+        <option value="Hemoglobin [Mass/volume] in Blood">Hemoglobin [Mass/volume] in Blood</option>
+        <option value="MCH [Entitic mass] by Automated count">MCH [Entitic mass] by Automated count</option>
+        <option value="Diastolic Blood Pressure">Diastolic Blood Pressure</option>
+        <option value="Blood Pressure">Blood Pressure</option>
+
+    </select>
+    <button type="submit">Generate</button>
+</form>
+<img id="loadingicon" src="https://cdn.discordapp.com/emojis/435575106417197057.gif?v=1" style="visibility: hidden;"
+     alt="loading icon">
+<!--IMAGE LOADED HERE-->
+<div id="image_div">
+    <img id="graph_image">
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+<script>
+
+    function request_graph(form) {
+        form.preventDefault();
+        document.getElementById("loadingicon").style.visibility = "visible";
+        let form_data = new FormData(form.target);
+        // console.log(form_data);
+        $.ajax({
+            type: 'get',
+            url: '/graph?observation=' + encodeURI(form_data.get('observation').toString()),
+            async: true,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log(data);
+                document.getElementById("loadingicon").style.visibility = "hidden";
+                document.getElementById("graph_image").setAttribute("src", data);
+            }
+        });
+    }
+
+    let graph_form = document.getElementById('selection');
+    graph_form.addEventListener('submit', request_graph);
+
+</script>
+</body>
+</html>

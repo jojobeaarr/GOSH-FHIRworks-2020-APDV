@@ -1,6 +1,7 @@
 from pprint import pprint
 import matplotlib.pyplot as plt
 from fhir_parser import FHIR
+from uuid import uuid4
 
 fhir = FHIR()
 patients = fhir.get_all_patients()
@@ -67,8 +68,10 @@ def gen_graph(text):
     plt.plot(*zip(*stuff))
     plt.xlabel("Ages")
     plt.ylabel(text)
-    plt.savefig("result.png")
+    img_id = uuid4()
+    plt.savefig(f"static/{img_id}.png")
     plt.show()
+    return img_id
 
 
 #gen_graph("Pain severity - 0-10 verbal numeric rating [Score] - Reported")
