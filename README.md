@@ -17,7 +17,7 @@ Observation data can be any of the following:
 - Blood Pressure
 
 # API
-A public API to fetch the cleaned raw data is currently in progress. 
+A public GET API to generate graph (image binary data returned) based on observation request.
 Query via http://fhir.compositegrid.com:8080/graph
 Parameter: observation 
 
