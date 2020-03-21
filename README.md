@@ -18,3 +18,10 @@ Observation data can be any of the following:
 
 # API
 A public API to fetch the cleaned raw data is currently in progress. 
+Query via http://fhir.compositegrid.com:8080/graph
+Parameter: observation 
+# NOTE: A FHIR caching server (from Greenfrogs) is currently hosted on my private server, which will run out of credit in 41 days.
+
+# Website Demo
+Click here for a demo: https://gosh-fhir.azurewebsites.net/
+Request may take about 5-10 minutes.
